@@ -80,7 +80,8 @@ mark{background:linear-gradient(var(--mark),var(--mark)) no-repeat right/100% 10
 .doc p{animation:slide .5s ease-out both}
 .doc p:nth-of-type(2){animation-delay:.12s}.doc p:nth-of-type(3){animation-delay:.24s}
 @keyframes slide{from{transform:translateX(-14px)}to{transform:none}}
-.doc .ts{font-family:"Assistant",sans-serif;font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-inline-start:6px}
+.doc .ts{display:inline-block;direction:ltr;unicode-bidi:isolate;font-family:"Assistant",sans-serif;font-size:.74rem;line-height:1.6;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-inline-end:8px;font-variant-numeric:tabular-nums;vertical-align:2px}
+@media (max-width:520px){.doc .fmt{display:none}.doc{padding:16px;font-size:.98rem;line-height:1.9}}
 .caret{display:inline-block;width:2px;height:1.1em;background:var(--ink);vertical-align:-3px;margin-inline-start:2px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 
@@ -121,7 +122,8 @@ section{display:flex;flex-direction:column;gap:18px;scroll-margin-top:80px}
 
 /* table */
 .tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;min-width:340px}
+table{border-collapse:collapse;width:100%}
+@media (max-width:520px){th,td{padding:10px 12px;font-size:.95rem}}
 th,td{text-align:right;padding:12px 16px;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:0}
 th{font-size:.85rem;color:var(--muted);font-weight:600}
@@ -190,10 +192,10 @@ dialog[open]{animation:pop .22s ease-out}
     <span class="sub">בלי התחייבות. לא אהבתם את הדוגמה? לא שילמתם כלום.</span>
   </div>
   <div class="doc" aria-label="דוגמה לתמלול">
-    <div class="meta"><span>ראיון 04 · מחקר איכותני</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>David 12 · רווח כפול</span></div>
-    <p><b>מראיינת:</b> ספרי לי על היום הראשון שלך בבית הספר.<span class="ts">00:04:12</span></p>
-    <p><b>מרואיינת (ד'):</b> זה היה מלחיץ. המנהלת, <mark>[שם בדוי: רחל]</mark>, קיבלה אותי במסדרון ואמרה לי...<span class="ts">00:04:19</span></p>
-    <p><b>מראיינת:</b> ואיך הרגשת באותו רגע?<span class="caret" aria-hidden="true"></span></p>
+    <div class="meta"><span>ראיון מספר 4 · מחקר איכותני</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="fmt">גופן דוד 12 · רווח כפול</span></div>
+    <p><bdi class="ts" dir="ltr">04:12</bdi><b>מראיינת:</b> ספרי לי על היום הראשון שלך בבית הספר</p>
+    <p><bdi class="ts" dir="ltr">04:19</bdi><b>מרואיינת:</b> זה היה מלחיץ. המנהלת <mark>(שם בדוי: רחל)</mark> קיבלה אותי במסדרון ואמרה לי מה הכללים</p>
+    <p><bdi class="ts" dir="ltr">04:41</bdi><b>מראיינת:</b> ואיך הרגשת באותו רגע<span class="caret" aria-hidden="true"></span></p>
   </div>
 </section>
 
@@ -289,7 +291,7 @@ dialog[open]{animation:pop .22s ease-out}
   <button class="btn" type="button" data-open>דברו איתנו</button>
 </section>
 
-<footer>מילה במילה · עוסק פטור · תמלול ראיונות למחקר איכותני</footer>
+<footer>© 2026 מילה במילה · תמלול ראיונות לתזה ולמחקר · <bdi dir="ltr">058-7618561</bdi> · <bdi dir="ltr">milabrmila2026@gmail.com</bdi></footer>
 </div>
 
 <div class="mbar">
