@@ -74,6 +74,24 @@ button{font:inherit}
 .btn.ghost:hover{border-color:var(--accent);background:transparent}
 .btn svg{width:20px;height:20px;flex:none}
 
+/* guides: header pill + cards */
+.guides-link{position:relative;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;font-weight:700;font-size:.95rem;text-decoration:none;color:var(--mark-ink);background:linear-gradient(110deg,var(--mark) 40%,#FFF6D6 50%,var(--mark) 60%);background-size:250% 100%;animation:shine 3.2s ease-in-out infinite;transition:transform .15s ease}
+.guides-link:hover{transform:translateY(-2px)}
+.guides-link:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@keyframes shine{0%,60%{background-position:100% 0}100%{background-position:0 0}}
+.new-dot{position:absolute;top:-2px;inset-inline-end:-2px;width:10px;height:10px;border-radius:50%;background:#E0483E;box-shadow:0 0 0 0 rgba(224,72,62,.6);animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(224,72,62,.55)}80%,100%{box-shadow:0 0 0 9px rgba(224,72,62,0)}}
+.badge-new{display:inline-block;vertical-align:middle;font-family:"Assistant",sans-serif;font-size:.8rem;font-weight:700;background:#E0483E;color:#fff;border-radius:999px;padding:2px 10px;margin-inline-start:8px}
+.guide-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:760px){.guide-cards{grid-template-columns:1fr}}
+.guide-card{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;text-decoration:none;color:var(--ink);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+.guide-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 14px 30px -18px var(--shadow)}
+.guide-card:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.guide-card p{color:var(--muted);font-size:.95rem;flex:1}
+.g-ico{font-size:1.6rem;line-height:1}
+.g-go{color:var(--accent);font-weight:700;font-size:.95rem;transition:transform .2s ease}
+.guide-card:hover .g-go{transform:translateX(-6px)}
+
 /* hero */
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding-top:28px}
 @media (max-width:780px){.hero{grid-template-columns:1fr;gap:28px}}
@@ -164,7 +182,7 @@ footer{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padd
 /* mobile sticky bar */
 .mbar{position:fixed;inset-inline:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:none;gap:10px}
 .mbar .btn{flex:1}
-@media (max-width:640px){.mbar{display:flex}.top .btn{display:none}}
+@media (max-width:640px){.mbar{display:flex}.top .btn{display:none}.brand small{display:none}}
 
 /* dialog */
 dialog{border:0;border-radius:16px;padding:0;width:min(460px,calc(100vw - 32px));max-height:calc(100vh - 32px);background:var(--surface);color:var(--ink);box-shadow:0 30px 80px -20px var(--shadow)}
@@ -192,7 +210,7 @@ dialog[open]{animation:pop .22s ease-out}
 <header class="top"><div class="top-in">
   <span class="brand">מילה במילה<small>תמלול ראיונות למחקר</small></span>
   <div style="display:flex;gap:14px;align-items:center">
-    <a href="articles/" style="color:var(--muted);font-weight:600;text-decoration:none">מדריכים</a>
+    <a class="guides-link" href="articles/"><span aria-hidden="true">📖</span> מדריכים<span class="new-dot" aria-label="חדש"></span></a>
     <button class="btn sm" type="button" data-open>קבלו הצעת מחיר</button>
   </div>
 </div></header>
@@ -292,13 +310,13 @@ dialog[open]{animation:pop .22s ease-out}
 </section>
 
 <section>
-  <h2>מדריכים לסטודנטים</h2>
-  <div class="trust">
-    <div><h3><a href="articles/kama-ole-timlul-raayon/">כמה עולה תמלול ראיון?</a></h3><p>המחירים בשוק, ממה מורכב המחיר, וכמה זמן לוקח לתמלל לבד.</p></div>
-    <div><h3><a href="articles/eich-metamlelim-raayon-mechkar-eichutani/">איך מתמללים ראיון למחקר איכותני</a></h3><p>סוגי תמלול, סימון דוברים, התממה וטעויות נפוצות.</p></div>
-    <div><h3><a href="articles/timlul-vaadat-etika/">תמלול ראיונות וועדת האתיקה</a></h3><p>מי נחשף להקלטות, כלים בענן, סודיות ומחיקה.</p></div>
-    <div><h3><a href="articles/">כל המדריכים ←</a></h3><p>עוד מדריכים יתווספו בקרוב.</p></div>
+  <h2>מדריכים לסטודנטים <span class="badge-new">חדש</span></h2>
+  <div class="guide-cards">
+    <a class="guide-card" href="articles/kama-ole-timlul-raayon/"><span class="g-ico" aria-hidden="true">💰</span><h3>כמה עולה תמלול ראיון?</h3><p>המחירים בשוק, ממה מורכב המחיר, וכמה זמן לוקח לתמלל לבד.</p><span class="g-go">לקריאה ←</span></a>
+    <a class="guide-card" href="articles/eich-metamlelim-raayon-mechkar-eichutani/"><span class="g-ico" aria-hidden="true">🎧</span><h3>איך מתמללים ראיון למחקר איכותני</h3><p>סוגי תמלול, סימון דוברים, התממה וטעויות נפוצות.</p><span class="g-go">לקריאה ←</span></a>
+    <a class="guide-card" href="articles/timlul-vaadat-etika/"><span class="g-ico" aria-hidden="true">🔒</span><h3>תמלול ראיונות וועדת האתיקה</h3><p>מי נחשף להקלטות, כלים בענן, סודיות ומחיקה.</p><span class="g-go">לקריאה ←</span></a>
   </div>
+  <a class="btn ghost" href="articles/" style="align-self:flex-start">לכל המדריכים</a>
 </section>
 
 <section>
