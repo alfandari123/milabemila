@@ -29,21 +29,21 @@
 :root{
   --bg:#FAFAF9; --surface:#FFFFFF; --ink:#1B2A41; --muted:#5B6678; --line:#E2E5EA;
   --accent:#1F5F8B; --accent-hover:#174B6E; --accent-ink:#FFFFFF; --mark:#FBE7A6; --mark-ink:#1B2A41;
-  --wa:#1E8E4E; --wa-ink:#FFFFFF; --shade:rgba(15,22,32,.55); --shadow:rgba(20,30,50,.28);
+  --wa:#1E8E4E; --wa-ink:#FFFFFF; --shine:#FFF6D6; --shade:rgba(15,22,32,.55); --shadow:rgba(20,30,50,.28);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
     --bg:#10161F; --surface:#18212D; --ink:#E7ECF2; --muted:#9AA5B4; --line:#2A3544;
     --accent:#6FB3E0; --accent-hover:#8CC4EA; --accent-ink:#0C1520; --mark:#5A4A16; --mark-ink:#FCEFC4;
-    --wa:#3CC77A; --wa-ink:#07140C; --shade:rgba(0,0,0,.7); --shadow:rgba(0,0,0,.5);
+    --wa:#3CC77A; --wa-ink:#07140C; --shine:#7A6624; --shade:rgba(0,0,0,.7); --shadow:rgba(0,0,0,.5);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
   --bg:#10161F; --surface:#18212D; --ink:#E7ECF2; --muted:#9AA5B4; --line:#2A3544;
   --accent:#6FB3E0; --accent-hover:#8CC4EA; --accent-ink:#0C1520; --mark:#5A4A16; --mark-ink:#FCEFC4;
-  --wa:#3CC77A; --wa-ink:#07140C; --shade:rgba(0,0,0,.7); --shadow:rgba(0,0,0,.5);
+  --wa:#3CC77A; --wa-ink:#07140C; --shine:#7A6624; --shade:rgba(0,0,0,.7); --shadow:rgba(0,0,0,.5);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -75,7 +75,7 @@ button{font:inherit}
 .btn svg{width:20px;height:20px;flex:none}
 
 /* guides: header pill + cards */
-.guides-link{position:relative;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;font-weight:700;font-size:.95rem;text-decoration:none;color:var(--mark-ink);background:linear-gradient(110deg,var(--mark) 40%,#FFF6D6 50%,var(--mark) 60%);background-size:250% 100%;animation:shine 3.2s ease-in-out infinite;transition:transform .15s ease}
+.guides-link{position:relative;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;font-weight:700;font-size:.95rem;text-decoration:none;color:var(--mark-ink);background:linear-gradient(110deg,var(--mark) 40%,var(--shine) 50%,var(--mark) 60%);background-size:250% 100%;animation:shine 3.2s ease-in-out infinite;transition:transform .15s ease}
 .guides-link:hover{transform:translateY(-2px)}
 .guides-link:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @keyframes shine{0%,60%{background-position:100% 0}100%{background-position:0 0}}
