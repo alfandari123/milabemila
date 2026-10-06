@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>איך מנתחים ראיונות אחרי התמלול: ניתוח תמטי בשישה שלבים</title>
+<meta name="description" content="מדריך לניתוח תמטי של ראיונות לפי שישת השלבים של בראון וקלארק: היכרות עם הנתונים, קידוד, חיפוש תמות, בדיקה, הגדרה וכתיבה.">
+<link rel="canonical" href="https://alfandari123.github.io/milabemila/articles/nituach-tmati-raayonot/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="מילה במילה">
+<meta property="og:title" content="איך מנתחים ראיונות אחרי התמלול: ניתוח תמטי בשישה שלבים">
+<meta property="og:description" content="מדריך לניתוח תמטי של ראיונות לפי שישת השלבים של בראון וקלארק: היכרות עם הנתונים, קידוד, חיפוש תמות, בדיקה, הגדרה וכתיבה.">
+<meta property="og:url" content="https://alfandari123.github.io/milabemila/articles/nituach-tmati-raayonot/">
+<meta property="og:image" content="https://alfandari123.github.io/milabemila/og-image.png">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Assistant:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#FAFAF9;--surface:#fff;--ink:#1B2A41;--muted:#5B6678;--line:#E2E5EA;--accent:#1F5F8B;--accent-ink:#fff;--mark:#FBE7A6;--mark-ink:#1B2A41;--wa:#1E8E4E}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#10161F;--surface:#18212D;--ink:#E7ECF2;--muted:#9AA5B4;--line:#2A3544;--accent:#6FB3E0;--accent-ink:#0C1520;--mark:#5A4A16;--mark-ink:#FCEFC4;--wa:#3CC77A}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Assistant","Segoe UI",Arial,sans-serif;font-size:18px;line-height:1.75;direction:rtl;padding-inline:20px;padding-block:0 60px}
+.top{border-bottom:1px solid var(--line);margin-inline:-20px;padding:12px 20px}
+.top-in,.wrap{max-width:760px;margin:0 auto}
+.top-in{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:"Secular One",sans-serif;font-size:1.2rem;color:var(--accent);text-decoration:none}
+.nav a{color:var(--muted);text-decoration:none;margin-inline-start:16px;font-weight:600}
+.nav a:hover{color:var(--accent)}
+.crumbs{font-size:.88rem;color:var(--muted);margin-top:24px}
+.crumbs a{color:var(--muted)}
+h1,h2,h3{font-family:"Secular One","Assistant",sans-serif;font-weight:400;line-height:1.25;text-wrap:balance}
+h1{font-size:clamp(1.9rem,5.5vw,2.6rem);margin:10px 0 8px}
+h2{font-size:1.45rem;margin:38px 0 8px}
+h3{font-size:1.15rem;margin:24px 0 4px}
+p,ul,ol{margin:0 0 14px}
+ul,ol{padding-inline-start:24px}
+li{margin-bottom:6px}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:22px}
+.lede{font-size:1.15rem;color:var(--muted)}
+mark{background:var(--mark);color:var(--mark-ink);padding:0 4px;border-radius:3px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:20px 0}
+.box h3{margin-top:0}
+.tbl{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:.96rem}
+th,td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:.85rem}
+.cta{background:var(--ink);color:var(--bg);border-radius:14px;padding:26px;margin:40px 0 20px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.cta h2{margin:0;color:var(--bg)}
+.cta p{margin:0;opacity:.85}
+.btn{display:inline-block;background:var(--wa);color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:10px}
+.btn.alt{background:transparent;border:1.5px solid currentColor;color:inherit}
+.src{font-size:.85rem;color:var(--muted)}
+.src a{color:var(--muted)}
+.related a{color:var(--accent);font-weight:600}
+.cards{display:grid;gap:14px;margin-top:20px}
+.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;text-decoration:none;color:var(--ink)}
+.card:hover{border-color:var(--accent)}
+.card h2{margin:0 0 6px;font-size:1.3rem;color:var(--accent)}
+.card p{margin:0;color:var(--muted)}
+footer{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;margin-top:40px}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "איך מנתחים ראיונות אחרי התמלול", "description": "מדריך לניתוח תמטי של ראיונות לפי שישת השלבים של בראון וקלארק: היכרות עם הנתונים, קידוד, חיפוש תמות, בדיקה, הגדרה וכתיבה.", "inLanguage": "he", "datePublished": "2026-10-06", "dateModified": "2026-10-06", "author": {"@type": "Organization", "name": "מילה במילה"}, "publisher": {"@type": "Organization", "name": "מילה במילה"}, "mainEntityOfPage": "https://alfandari123.github.io/milabemila/articles/nituach-tmati-raayonot/", "image": "https://alfandari123.github.io/milabemila/og-image.png"}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="brand" href="../../">מילה במילה</a>
+  <nav class="nav"><a href="../../articles/">מדריכים</a><a href="../../#calc">מחיר</a><a href="https://wa.me/972587618561?text=%D7%94%D7%99%D7%99%21%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%AA%D7%9E%D7%9C%D7%95%D7%9C%20%D7%A8%D7%90%D7%99%D7%95%D7%A0%D7%95%D7%AA">וואטסאפ</a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="../../">ראשי</a> ‹ <a href="../">מדריכים</a></p><h1>איך מנתחים ראיונות אחרי התמלול</h1><p class="meta">מילה במילה · עודכן ב-06/10/2026</p>
+<p class="lede">סיימתם לתמלל, ויש לכם ערימה של עמודים. מה עכשיו? אחת השיטות הנפוצות לניתוח ראיונות היא <b>ניתוח תמטי</b>, והמודל המוכר ביותר שלה הוא של בראון וקלארק, בשישה שלבים.</p>
+
+<h2>ששת השלבים</h2>
+<p class="src">לפי <a href="https://www.researchgate.net/profile/Lindani-Maphumulo/post/Readings_on_qualitative_methods_for_data_collection_and_analysis_to_be_assigned_to_students_in_a_training_in_Africa/attachment/59d6445ac49f478072ead13e/AS:273797716873216@1442289870159/download/thematic_analysis_revised_-_final.pdf"><bdi dir="ltr">Braun &amp; Clarke, 2006</bdi></a></p>
+
+<h3>1. היכרות עם הנתונים</h3>
+<p>קוראים את כל התמלולים, רצוי יותר מפעם אחת, ורושמים רעיונות ראשונים. כאן יתרון גדול למי שבדק את התמלול מול ההקלטה: אתם כבר מכירים את החומר.</p>
+
+<h3>2. יצירת קודים ראשוניים</h3>
+<p>עוברים על הטקסט ומסמנים קטעים מעניינים עם תווית קצרה, "קוד". למשל: "חוסר אמון בהנהלה", "תמיכה של עמיתים". בשלב הזה מקודדים הרבה, ולא מסננים.</p>
+
+<h3>3. חיפוש תמות</h3>
+<p>מקבצים קודים קשורים לנושאים רחבים יותר, "תמות". למשל, כמה קודים על יחסים בצוות יכולים להתחבר לתמה "בניית אמון".</p>
+
+<h3>4. בדיקת התמות</h3>
+<p>בודקים שכל תמה נתמכת בנתונים, ושהתמות לא חופפות. חלק מהתמות מתאחדות, חלק מתפצלות, וחלק נופלות.</p>
+
+<h3>5. הגדרת התמות ומתן שמות</h3>
+<p>לכל תמה כותבים הגדרה קצרה: על מה היא, ומה היא אומרת על שאלת המחקר. ובוחרים לה שם ברור.</p>
+
+<h3>6. כתיבת הדוח</h3>
+<p>כותבים את פרק הממצאים: כל תמה עם הסבר וציטוטים מהראיונות שממחישים אותה.</p>
+
+<h2>טיפים מעשיים</h2>
+<ul>
+<li><b>כלים:</b> אפשר לעבוד עם הערות ב-Word וטבלה באקסל. יש גם תוכנות ייעודיות, כמו NVivo, ATLAS.ti ו-MAXQDA. בדקו מה המוסד שלכם מספק.</li>
+<li><b>שמרו מאיפה כל ציטוט:</b> מספר הראיון וחותמת הזמן. בזכות חותמות זמן בתמלול, קל לחזור להקלטה ולוודא.</li>
+<li><b>אל תהפכו את שאלות הראיון לתמות.</b> זו טעות נפוצה. תמה היא דפוס שעולה מהתשובות, ולא הכותרת של שאלה ששאלתם.</li>
+<li><b>ציטוטים ממרואיינים עוברים התממה</b> גם בפרק הממצאים. ראו <a href="../timlul-vaadat-etika/">תמלול וועדת האתיקה</a>.</li>
+</ul>
+
+<h2>כדאי לדעת</h2>
+<p>בראון וקלארק המשיכו לפתח את השיטה בשנים שאחרי 2006, והיום הם מדגישים את התפקיד הפעיל והרפלקטיבי של החוקר בניתוח. אם אתם משתמשים בשיטה, בדקו עם המנחה על איזו גרסה להתבסס.</p>
+
+<section class="cta">
+  <h2>יש לכם ראיונות לתמלל?</h2>
+  <p>5 ₪ לדקה, מסירה תוך 72 שעות, פורמט אקדמי והתממה. 10 הדקות הראשונות בחינם.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="https://wa.me/972587618561?text=%D7%94%D7%99%D7%99%21%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%AA%D7%9E%D7%9C%D7%95%D7%9C%20%D7%A8%D7%90%D7%99%D7%95%D7%A0%D7%95%D7%AA">שלחו הקלטה בוואטסאפ</a><a class="btn alt" href="../../#calc">מחשבון מחיר</a></div>
+</section>
+<p class="related"><b>עוד מדריכים:</b> <a href="../kama-ole-timlul-raayon/">כמה עולה תמלול ראיון?</a> · <a href="../eich-metamlelim-raayon-mechkar-eichutani/">איך מתמללים ראיון למחקר איכותני</a> · <a href="../timlul-vaadat-etika/">תמלול ראיונות וועדת האתיקה</a> · <a href="../eich-maklitim-raayon-batelefon/">איך מקליטים ראיון בטלפון, באיכות טובה</a> · <a href="../timlul-kvutzat-mikud/">תמלול קבוצת מיקוד: מה שונה ואיך מתכוננים</a> · <a href="../kama-raayonot-tzarich-mechkar-eichutani/">כמה ראיונות צריך למחקר איכותני?</a></p>
+</main>
+<footer class="wrap">© 2026 מילה במילה · תמלול ראיונות לתזה ולמחקר · <bdi dir="ltr">058-7618561</bdi> · <bdi dir="ltr">milabrmila2026@gmail.com</bdi></footer>
+</body>
+</html>
